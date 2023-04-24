@@ -40,7 +40,7 @@ Implementation Notes
 # imports
 
 try:
-    from typing import Union, Optional
+    from typing import Optional
     from circuitpython_typing import FillBasedColorUnion
 except:
     pass
