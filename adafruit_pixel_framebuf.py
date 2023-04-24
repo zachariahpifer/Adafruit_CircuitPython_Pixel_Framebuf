@@ -39,6 +39,12 @@ Implementation Notes
 
 # imports
 
+try:
+    from typing import Union, Optional
+    from circuitpython_typing import FillBasedColorUnion
+except:
+    pass
+
 from micropython import const
 import adafruit_framebuf
 from adafruit_led_animation.grid import PixelGrid
@@ -70,22 +76,22 @@ class PixelFramebuffer(adafruit_framebuf.FrameBuffer):
 
     def __init__(
         self,
-        pixels,
-        width,
-        height,
-        orientation=HORIZONTAL,
-        alternating=True,
-        reverse_x=False,
-        reverse_y=False,
-        top=0,
-        bottom=0,
-        rotation=0,
+        strip: FillBasedColorUnion,
+        width: int,
+        height: int,
+        orientation: const = HORIZONTAL,
+        alternating: bool = True,
+        reverse_x: bool = False,
+        reverse_y: bool = False,
+        top: Optional(tuple)  = 0,
+        bottom: Optional(tuple) = 0,
+        rotation: int = 0,
     ):  # pylint: disable=too-many-arguments
         self._width = width
         self._height = height
 
         self._grid = PixelGrid(
-            pixels,
+            strip,
             width,
             height,
             orientation,
@@ -103,11 +109,11 @@ class PixelFramebuffer(adafruit_framebuf.FrameBuffer):
         )
         self.rotation = rotation
 
-    def blit(self):
+    def blit(self) -> None:
         """blit is not yet implemented"""
         raise NotImplementedError()
 
-    def display(self):
+    def display(self) -> None:
         """Copy the raw buffer changes to the grid and show"""
         for _y in range(self._height):
             for _x in range(self._width):
