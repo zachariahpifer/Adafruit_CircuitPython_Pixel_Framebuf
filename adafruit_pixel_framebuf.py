@@ -42,7 +42,7 @@ Implementation Notes
 try:
     from typing import Optional
     from circuitpython_typing import FillBasedColorUnion
-except:
+except ImportError:
     pass
 
 from micropython import const
@@ -83,7 +83,7 @@ class PixelFramebuffer(adafruit_framebuf.FrameBuffer):
         alternating: bool = True,
         reverse_x: bool = False,
         reverse_y: bool = False,
-        top: Optional(tuple)  = 0,
+        top: Optional(tuple) = 0,
         bottom: Optional(tuple) = 0,
         rotation: int = 0,
     ):  # pylint: disable=too-many-arguments
